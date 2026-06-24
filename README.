@@ -1,0 +1,15 @@
+# AWS S3 Static Website
+A static website deployed on AWS S3.
+
+## Technologies
+- HTML
+- CSS
+- JavaScript
+- AWS S3
+
+## Features
+- Static Website Hosting
+- Public Access via Bucket Policy
+
+## Live Demo
+URL : http://static-website-516.s3-website.ap-south-1.amazonaws.com
