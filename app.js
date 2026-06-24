@@ -1,17 +1,10 @@
-// ============================================================
-//  Taskly — app.js
-//  Features: add, complete, delete, filter, persist to localStorage
-// ============================================================
-
 (function () {
   'use strict';
 
-  // ── State ────────────────────────────────────────────────
   const STORAGE_KEY = 'taskly_tasks';
   let tasks = loadTasks();
   let currentFilter = 'all';
 
-  // ── DOM refs ─────────────────────────────────────────────
   const taskInput        = document.getElementById('taskInput');
   const categorySelect   = document.getElementById('categorySelect');
   const addBtn           = document.getElementById('addBtn');
@@ -23,11 +16,9 @@
   const clearCompleted   = document.getElementById('clearCompletedBtn');
   const filterBtns       = document.querySelectorAll('.filter-btn');
 
-  // ── Initialise ───────────────────────────────────────────
   render();
   bindEvents();
 
-  // ── Events ───────────────────────────────────────────────
   function bindEvents() {
     addBtn.addEventListener('click', handleAdd);
     taskInput.addEventListener('keydown', (e) => {
@@ -50,7 +41,6 @@
     });
   }
 
-  // ── Add Task ─────────────────────────────────────────────
   function handleAdd() {
     const text = taskInput.value.trim();
     if (!text) {
@@ -75,7 +65,6 @@
     render();
   }
 
-  // ── Toggle Done ──────────────────────────────────────────
   function toggleTask(id) {
     const task = tasks.find((t) => t.id === id);
     if (task) {
@@ -85,14 +74,12 @@
     }
   }
 
-  // ── Delete Task ──────────────────────────────────────────
   function deleteTask(id) {
     tasks = tasks.filter((t) => t.id !== id);
     saveTasks();
     render();
   }
 
-  // ── Render ───────────────────────────────────────────────
   function render() {
     const filtered = getFiltered();
 
@@ -119,7 +106,6 @@
     }
   }
 
-  // ── Create Task Element ──────────────────────────────────
   function createTaskElement(task) {
     const li = document.createElement('li');
     li.className = `task-item${task.done ? ' done' : ''}`;
@@ -149,7 +135,6 @@
     content.appendChild(document.createElement('br'));
     content.appendChild(catEl);
 
-    // Delete button
     const delBtn = document.createElement('button');
     delBtn.className = 'delete-btn';
     delBtn.setAttribute('aria-label', `Delete "${task.text}"`);
@@ -166,7 +151,6 @@
     return li;
   }
 
-  // ── Stats ────────────────────────────────────────────────
   function updateStats() {
     const total     = tasks.length;
     const done      = tasks.filter((t) => t.done).length;
@@ -180,7 +164,6 @@
     }
   }
 
-  // ── Progress Ring ────────────────────────────────────────
   function updateProgress() {
     const total = tasks.length;
     const done  = tasks.filter((t) => t.done).length;
@@ -191,7 +174,6 @@
     progressLabel.textContent = `${pct}%`;
   }
 
-  // ── Persist ──────────────────────────────────────────────
   function saveTasks() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
